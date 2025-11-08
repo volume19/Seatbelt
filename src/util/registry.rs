@@ -9,7 +9,9 @@ use winreg::enums::*;
 #[cfg(windows)]
 use winreg::RegKey;
 
-use crate::error::{Result, SeatbeltError};
+use crate::error::Result;
+#[cfg(windows)]
+use crate::error::SeatbeltError;
 use std::collections::HashMap;
 
 /// Registry hive enumeration
@@ -78,6 +80,7 @@ pub fn get_string_value(hive: RegistryHive, path: &str, value: &str) -> Result<O
     }
 }
 
+/// Non-Windows stub: always returns None
 #[cfg(not(windows))]
 pub fn get_string_value(_hive: RegistryHive, _path: &str, _value: &str) -> Result<Option<String>> {
     Ok(None)
@@ -111,6 +114,7 @@ pub fn get_dword_value(hive: RegistryHive, path: &str, value: &str) -> Result<Op
     }
 }
 
+/// Non-Windows stub: always returns None
 #[cfg(not(windows))]
 pub fn get_dword_value(_hive: RegistryHive, _path: &str, _value: &str) -> Result<Option<u32>> {
     Ok(None)
@@ -144,6 +148,7 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, value: &str) -> Result<O
     }
 }
 
+/// Non-Windows stub: always returns None
 #[cfg(not(windows))]
 pub fn get_binary_value(
     _hive: RegistryHive,
@@ -180,6 +185,7 @@ pub fn get_subkey_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> {
     }
 }
 
+/// Non-Windows stub: always returns empty vector
 #[cfg(not(windows))]
 pub fn get_subkey_names(_hive: RegistryHive, _path: &str) -> Result<Vec<String>> {
     Ok(Vec::new())
@@ -214,6 +220,7 @@ pub fn get_values(hive: RegistryHive, path: &str) -> Result<HashMap<String, Stri
     }
 }
 
+/// Non-Windows stub: always returns empty HashMap
 #[cfg(not(windows))]
 pub fn get_values(_hive: RegistryHive, _path: &str) -> Result<HashMap<String, String>> {
     Ok(HashMap::new())
@@ -228,6 +235,7 @@ pub fn get_user_sids() -> Result<Vec<String>> {
     get_subkey_names(RegistryHive::HKU, "")
 }
 
+/// Non-Windows stub: always returns empty vector
 #[cfg(not(windows))]
 pub fn get_user_sids() -> Result<Vec<String>> {
     Ok(Vec::new())
