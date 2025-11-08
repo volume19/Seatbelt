@@ -1,6 +1,18 @@
-.vs
-*.user
-[Dd]ebug/
-[Rr]elease/
-[Bb]in/
-[Oo]bj/
+# Rust build artifacts
+/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo lock for libraries (but we're a binary, so keep it)
+# Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

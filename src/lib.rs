@@ -20,3 +20,6 @@ pub mod error;
 
 /// Command abstraction and base types
 pub mod commands;
+
+/// Output system (sinks, writers, formatters)
+pub mod output;
