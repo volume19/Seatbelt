@@ -4,9 +4,14 @@
 //! Requires Windows 8/Server 2012 or later.
 
 use crate::commands::{Command, CommandDTO, CommandGroup};
-use crate::error::{Result, SeatbeltError};
+use crate::error::Result;
 use crate::runtime::Runtime;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
+
+#[cfg(windows)]
+use crate::error::SeatbeltError;
+#[cfg(windows)]
+use serde::Deserialize;
 
 /// DNS Cache command
 pub struct DnsCacheCommand;

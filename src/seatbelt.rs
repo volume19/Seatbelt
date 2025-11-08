@@ -147,6 +147,9 @@ impl Seatbelt {
     fn register_commands(&self, runtime: &mut Runtime) {
         // Register Windows commands
         runtime.register_command(Box::new(crate::commands::windows::DnsCacheCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::NetworkSharesCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::EnvironmentPathCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::SecureBootCommand::new()));
 
         log::debug!("Registered {} commands", runtime.commands().len());
     }
