@@ -1,0 +1,43 @@
+[package]
+name = "seatbelt"
+version = "1.2.2"
+edition = "2021"
+rust-version = "1.70"
+authors = ["Seatbelt Rust Port Contributors"]
+description = "Windows security enumeration tool (Rust port)"
+license = "BSD-3-Clause"
+
+[dependencies]
+thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+erased-serde = "0.4"
+clap = { version = "4.4", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+bitflags = "2.4"
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.52", features = [
+    "Win32_Foundation",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_System_ProcessStatus",
+    "Win32_Security",
+    "Win32_Security_Authentication_Identity",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_NetworkManagement_NetManagement",
+    "Win32_System_RemoteDesktop",
+    "Win32_System_Rpc",
+    "Win32_NetworkManagement_WiFi",
+] }
+winreg = "0.52"
+wmi = "0.13"
+chrono = "0.4"
+
+[dev-dependencies]
+tempfile = "3.8"
+
+[[bin]]
+name = "seatbelt"
+path = "src/main.rs"
