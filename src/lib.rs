@@ -26,3 +26,9 @@ pub mod output;
 
 /// Utility functions and helpers
 pub mod util;
+
+/// Command-line interface
+pub mod cli;
+
+/// Runtime execution engine
+pub mod runtime;

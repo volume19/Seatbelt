@@ -10,11 +10,6 @@ use crate::error::Result;
 pub use dto::CommandDTO;
 pub use groups::CommandGroup;
 
-// Forward declaration - Runtime will be defined later
-// For now we'll use a placeholder
-/// Placeholder for Runtime (will be implemented in Phase 3)
-pub struct Runtime;
-
 /// Base trait for all Seatbelt commands
 ///
 /// This trait is equivalent to the C# CommandBase abstract class.
@@ -63,5 +58,5 @@ pub trait Command: Send + Sync {
     ///
     /// # Returns
     /// A vector of DTOs representing the command output
-    fn execute(&self, runtime: &Runtime, args: &[String]) -> Result<Vec<Box<dyn CommandDTO>>>;
+    fn execute(&self, runtime: &crate::runtime::Runtime, args: &[String]) -> Result<Vec<Box<dyn CommandDTO>>>;
 }
