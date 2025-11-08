@@ -10,6 +10,9 @@ pub mod local_groups;
 pub mod osinfo;
 pub mod processes;
 pub mod windows_defender;
+pub mod services;
+pub mod network_adapters;
+pub mod powershell;
 
 pub use dns_cache::DnsCacheCommand;
 pub use network_shares::NetworkSharesCommand;
@@ -21,3 +24,6 @@ pub use local_groups::LocalGroupsCommand;
 pub use osinfo::OSInfoCommand;
 pub use processes::ProcessesCommand;
 pub use windows_defender::WindowsDefenderCommand;
+pub use services::ServicesCommand;
+pub use network_adapters::NetworkAdaptersCommand;
+pub use powershell::PowerShellCommand;

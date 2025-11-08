@@ -156,6 +156,9 @@ impl Seatbelt {
         runtime.register_command(Box::new(crate::commands::windows::OSInfoCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::ProcessesCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::WindowsDefenderCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::ServicesCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::NetworkAdaptersCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::PowerShellCommand::new()));
 
         log::debug!("Registered {} commands", runtime.commands().len());
     }
