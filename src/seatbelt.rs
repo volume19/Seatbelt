@@ -153,6 +153,9 @@ impl Seatbelt {
         runtime.register_command(Box::new(crate::commands::windows::HotfixesCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::LocalUsersCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::LocalGroupsCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::OSInfoCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::ProcessesCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::WindowsDefenderCommand::new()));
 
         log::debug!("Registered {} commands", runtime.commands().len());
     }
