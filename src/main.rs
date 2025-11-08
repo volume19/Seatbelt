@@ -1,10 +1,17 @@
 //! Seatbelt binary entry point
 
+use seatbelt::seatbelt::Seatbelt;
+use std::process;
+
 fn main() {
+    // Initialize logging (controlled by RUST_LOG environment variable)
     env_logger::init();
 
-    println!("Seatbelt v1.2.2 (Rust)");
-    println!("Initialization in progress...");
+    // Create and run Seatbelt
+    let app = Seatbelt::from_args();
 
-    std::process::exit(0);
+    if let Err(e) = app.run() {
+        eprintln!("Error: {}", e);
+        process::exit(1);
+    }
 }

@@ -32,3 +32,6 @@ pub mod cli;
 
 /// Runtime execution engine
 pub mod runtime;
+
+/// Main application orchestrator
+pub mod seatbelt;
