@@ -144,9 +144,10 @@ impl Seatbelt {
     }
 
     /// Register all available commands
-    fn register_commands(&self, _runtime: &mut Runtime) {
-        // TODO: Register actual commands
-        // For now, this is a placeholder. Commands will be added in Phase 4.
-        log::debug!("Registering commands...");
+    fn register_commands(&self, runtime: &mut Runtime) {
+        // Register Windows commands
+        runtime.register_command(Box::new(crate::commands::windows::DnsCacheCommand::new()));
+
+        log::debug!("Registered {} commands", runtime.commands().len());
     }
 }

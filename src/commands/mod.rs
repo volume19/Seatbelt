@@ -5,6 +5,7 @@
 
 pub mod dto;
 pub mod groups;
+pub mod windows;
 
 use crate::error::Result;
 pub use dto::CommandDTO;

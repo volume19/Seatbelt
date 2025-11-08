@@ -9,6 +9,7 @@ use crate::output::OutputSink;
 #[cfg(windows)]
 use crate::util::WmiConnection;
 use crate::util::{registry, RegistryHive};
+use std::cell::RefCell;
 use std::collections::HashMap;
 
 /// Remote connection credentials
@@ -53,8 +54,8 @@ impl Default for RuntimeConfig {
 pub struct Runtime {
     /// Registered commands
     commands: Vec<Box<dyn Command>>,
-    /// Output sink
-    output_sink: Box<dyn OutputSink>,
+    /// Output sink (using RefCell for interior mutability)
+    output_sink: RefCell<Box<dyn OutputSink>>,
     /// Runtime configuration
     config: RuntimeConfig,
 }
@@ -64,7 +65,7 @@ impl Runtime {
     pub fn new(output_sink: Box<dyn OutputSink>, config: RuntimeConfig) -> Self {
         Self {
             commands: Vec::new(),
-            output_sink,
+            output_sink: RefCell::new(output_sink),
             config,
         }
     }
@@ -96,16 +97,16 @@ impl Runtime {
 
     /// Execute a specific command by name
     pub fn execute_command(&mut self, command_name: &str, args: &[String]) -> Result<()> {
-        // Find the command
-        let command = self
+        // Find command index
+        let command_idx = self
             .commands
             .iter()
-            .find(|c| c.name().eq_ignore_ascii_case(command_name))
+            .position(|c| c.name().eq_ignore_ascii_case(command_name))
             .ok_or_else(|| format!("Command not found: {}", command_name))?;
 
         // Check if command supports remote execution
-        if self.is_remote() && !command.supports_remote() {
-            self.output_sink.write_warning(&format!(
+        if self.is_remote() && !self.commands[command_idx].supports_remote() {
+            self.output_sink.borrow_mut().write_warning(&format!(
                 "Command '{}' does not support remote execution",
                 command_name
             ));
@@ -113,19 +114,24 @@ impl Runtime {
         }
 
         // Write command header
+        let cmd_name = self.commands[command_idx].name();
         self.output_sink
-            .write_host(&format!("\n====== {} ======\n", command.name()));
+            .borrow_mut()
+            .write_host(&format!("\n====== {} ======\n", cmd_name));
 
         // Execute command
+        let command = &self.commands[command_idx];
         match command.execute(self, args) {
             Ok(results) => {
+                let mut sink = self.output_sink.borrow_mut();
                 for dto in results {
-                    self.output_sink.write_output(dto.as_ref())?;
+                    sink.write_output(dto.as_ref())?;
                 }
                 Ok(())
             }
             Err(e) => {
                 self.output_sink
+                    .borrow_mut()
                     .write_error(&format!("Error executing command '{}': {}", command_name, e));
                 Err(e)
             }
@@ -145,7 +151,7 @@ impl Runtime {
             .map(|c| c.name().to_string())
             .collect();
 
-        self.output_sink.write_host(&format!(
+        self.output_sink.borrow_mut().write_host(&format!(
             "\n[*] Executing group '{}' ({} commands)\n",
             group_name,
             command_names.len()
@@ -160,6 +166,7 @@ impl Runtime {
             // Execute command, but continue on error
             if let Err(e) = self.execute_command(&name, &[]) {
                 self.output_sink
+                    .borrow_mut()
                     .write_error(&format!("Failed to execute '{}': {}", name, e));
             }
         }
@@ -178,6 +185,7 @@ impl Runtime {
             // Execute command, but continue on error
             if let Err(e) = self.execute_command(name, &[]) {
                 self.output_sink
+                    .borrow_mut()
                     .write_error(&format!("Failed to execute '{}': {}", name, e));
             }
         }
@@ -257,23 +265,23 @@ impl Runtime {
     }
 
     /// Write a host message
-    pub fn write_host(&mut self, message: &str) {
-        self.output_sink.write_host(message);
+    pub fn write_host(&self, message: &str) {
+        self.output_sink.borrow_mut().write_host(message);
     }
 
     /// Write an error message
-    pub fn write_error(&mut self, message: &str) {
-        self.output_sink.write_error(message);
+    pub fn write_error(&self, message: &str) {
+        self.output_sink.borrow_mut().write_error(message);
     }
 
     /// Write a verbose message
-    pub fn write_verbose(&mut self, message: &str) {
-        self.output_sink.write_verbose(message);
+    pub fn write_verbose(&self, message: &str) {
+        self.output_sink.borrow_mut().write_verbose(message);
     }
 
     /// Write a warning message
-    pub fn write_warning(&mut self, message: &str) {
-        self.output_sink.write_warning(message);
+    pub fn write_warning(&self, message: &str) {
+        self.output_sink.borrow_mut().write_warning(message);
     }
 }
 
