@@ -150,6 +150,9 @@ impl Seatbelt {
         runtime.register_command(Box::new(crate::commands::windows::NetworkSharesCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::EnvironmentPathCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::SecureBootCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::HotfixesCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::LocalUsersCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::LocalGroupsCommand::new()));
 
         log::debug!("Registered {} commands", runtime.commands().len());
     }
