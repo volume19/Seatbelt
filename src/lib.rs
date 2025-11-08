@@ -23,3 +23,6 @@ pub mod commands;
 
 /// Output system (sinks, writers, formatters)
 pub mod output;
+
+/// Utility functions and helpers
+pub mod util;
