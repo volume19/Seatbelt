@@ -18,6 +18,9 @@ pub mod named_pipes;
 pub mod scheduled_tasks;
 pub mod installed_products;
 pub mod environment_variables;
+pub mod windows_firewall;
+pub mod logon_sessions;
+pub mod autoruns;
 
 pub use dns_cache::DnsCacheCommand;
 pub use network_shares::NetworkSharesCommand;
@@ -37,3 +40,6 @@ pub use named_pipes::NamedPipesCommand;
 pub use scheduled_tasks::ScheduledTasksCommand;
 pub use installed_products::InstalledProductsCommand;
 pub use environment_variables::EnvironmentVariablesCommand;
+pub use windows_firewall::WindowsFirewallCommand;
+pub use logon_sessions::LogonSessionsCommand;
+pub use autoruns::AutoRunsCommand;
