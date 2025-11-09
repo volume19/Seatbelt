@@ -24,6 +24,10 @@ pub mod autoruns;
 pub mod laps;
 pub mod credential_guard;
 pub mod internet_settings;
+pub mod certificates;
+pub mod uac;
+pub mod rdp_settings;
+pub mod antivirus;
 
 pub use dns_cache::DnsCacheCommand;
 pub use network_shares::NetworkSharesCommand;
@@ -49,3 +53,7 @@ pub use autoruns::AutoRunsCommand;
 pub use laps::LAPSCommand;
 pub use credential_guard::CredentialGuardCommand;
 pub use internet_settings::InternetSettingsCommand;
+pub use certificates::CertificatesCommand;
+pub use uac::UACCommand;
+pub use rdp_settings::RDPSettingsCommand;
+pub use antivirus::AntiVirusCommand;
