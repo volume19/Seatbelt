@@ -174,6 +174,10 @@ impl Seatbelt {
         runtime.register_command(Box::new(crate::commands::windows::UACCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::RDPSettingsCommand::new()));
         runtime.register_command(Box::new(crate::commands::windows::AntiVirusCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::TCPConnectionsCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::UDPConnectionsCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::AppLockerCommand::new()));
+        runtime.register_command(Box::new(crate::commands::windows::AuditSettingsCommand::new()));
 
         log::debug!("Registered {} commands", runtime.commands().len());
     }

@@ -28,6 +28,10 @@ pub mod certificates;
 pub mod uac;
 pub mod rdp_settings;
 pub mod antivirus;
+pub mod tcp_connections;
+pub mod udp_connections;
+pub mod applocker;
+pub mod audit_settings;
 
 pub use dns_cache::DnsCacheCommand;
 pub use network_shares::NetworkSharesCommand;
@@ -57,3 +61,7 @@ pub use certificates::CertificatesCommand;
 pub use uac::UACCommand;
 pub use rdp_settings::RDPSettingsCommand;
 pub use antivirus::AntiVirusCommand;
+pub use tcp_connections::TCPConnectionsCommand;
+pub use udp_connections::UDPConnectionsCommand;
+pub use applocker::AppLockerCommand;
+pub use audit_settings::AuditSettingsCommand;
