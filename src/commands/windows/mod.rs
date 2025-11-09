@@ -21,6 +21,9 @@ pub mod environment_variables;
 pub mod windows_firewall;
 pub mod logon_sessions;
 pub mod autoruns;
+pub mod laps;
+pub mod credential_guard;
+pub mod internet_settings;
 
 pub use dns_cache::DnsCacheCommand;
 pub use network_shares::NetworkSharesCommand;
@@ -43,3 +46,6 @@ pub use environment_variables::EnvironmentVariablesCommand;
 pub use windows_firewall::WindowsFirewallCommand;
 pub use logon_sessions::LogonSessionsCommand;
 pub use autoruns::AutoRunsCommand;
+pub use laps::LAPSCommand;
+pub use credential_guard::CredentialGuardCommand;
+pub use internet_settings::InternetSettingsCommand;
