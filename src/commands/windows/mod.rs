@@ -32,6 +32,10 @@ pub mod tcp_connections;
 pub mod udp_connections;
 pub mod applocker;
 pub mod audit_settings;
+pub mod event_logs;
+pub mod wmi_event_filters;
+pub mod recycle_bin;
+pub mod explicit_logon_events;
 
 pub use dns_cache::DnsCacheCommand;
 pub use network_shares::NetworkSharesCommand;
@@ -65,3 +69,7 @@ pub use tcp_connections::TCPConnectionsCommand;
 pub use udp_connections::UDPConnectionsCommand;
 pub use applocker::AppLockerCommand;
 pub use audit_settings::AuditSettingsCommand;
+pub use event_logs::EventLogsCommand;
+pub use wmi_event_filters::WMIEventFiltersCommand;
+pub use recycle_bin::RecycleBinCommand;
+pub use explicit_logon_events::ExplicitLogonEventsCommand;
